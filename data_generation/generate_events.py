@@ -24,7 +24,7 @@ random.seed(SEED)
 NUM_PATIENTS = 1_500
 START_DATE = datetime(2025, 10, 1)
 END_DATE = datetime(2025, 10, 21)
-NUM_DAYS = (END_DATE - START_DATE).days  # 21 days
+NUM_DAYS = (END_DATE - START_DATE).days + 1  # 21 days  
 
 # Path definitions: name → (sequence of activities, probability)
 PATHS = {
