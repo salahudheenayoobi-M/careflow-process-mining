@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: raw
+    database: careflow-513010      # in BigQuery, "database" means the Google Cloud project ID
+    schema: careflow               # the BigQuery dataset that holds the raw table
+    tables:
+      - name: er_events
+        description: "Raw ER event log loaded from er_events.csv (contains planted errors)."
+
+models:
+  - name: stg_er_events
+    description: "Cleaned ER event log: one row per patient event."
+    columns:
+      - name: case_id
+        description: "Patient visit ID, for example P-0001."
+        data_tests:
+          - not_null
+      - name: activity_name
+        description: "Standardized activity name."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["Arrival", "Registration", "Triage", "X-Ray", "Lab Test", "Doctor Consult", "Discharge"]
+      - name: event_timestamp
+        description: "When the event happened."
+        data_tests:
+          - not_null

@@ -1,0 +1,15 @@
+name: careflow
+version: "1.0.0"
+config-version: 2
+
+# Must match the profile name in C:\Users\<you>\.dbt\profiles.yml
+profile: careflow
+
+model-paths: ["models"]
+
+models:
+  careflow:
+    staging:
+      +materialized: view    # cleaned data, stored as a view
+    marts:
+      +materialized: table   # final tables used by PM4Py and Power BI
