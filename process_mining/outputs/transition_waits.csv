@@ -1,0 +1,11 @@
+step,next_step,patients,avg_minutes,max_minutes
+Triage (2nd visit),Doctor Consult,312,79.4,120.0
+Triage,Doctor Consult,296,58.3,90.0
+Lab Test,Doctor Consult,436,49.6,70.0
+X-Ray,Doctor Consult,451,41.1,164.0
+X-Ray,Triage (2nd visit),311,39.9,55.0
+Triage,X-Ray,762,25.1,35.0
+Triage,Lab Test,435,20.0,30.0
+Doctor Consult,Discharge,1489,19.8,30.0
+Registration,Triage,1491,10.2,15.0
+Arrival,Registration,1487,5.0,8.0
