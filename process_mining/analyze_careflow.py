@@ -96,6 +96,25 @@ def draw_diagrams(df: pd.DataFrame) -> None:
     heu_net = pm4py.discover_heuristics_net(log, dependency_threshold=0.5)
     pm4py.save_vis_heuristics_net(heu_net, str(OUT_DIR / "03_heuristics_net.png"))
 
+
+
+
+        # Cleaner diagrams: keep only patients on the 4 most common paths
+    path_of_case = df.groupby("case_id")["activity_name"].agg(" > ".join)
+    top_paths = path_of_case.value_counts().head(4).index
+    main_df = df[df["case_id"].isin(path_of_case[path_of_case.isin(top_paths)].index)]
+    main_log = pm4py.format_dataframe(
+        main_df, case_id="case_id", activity_key="activity_name", timestamp_key="event_timestamp"
+    )
+
+    dfg_m, start_m, end_m = pm4py.discover_dfg(main_log)
+    pm4py.save_vis_dfg(dfg_m, start_m, end_m, str(OUT_DIR / "04_dfg_frequency_main_paths.png"))
+
+    perf_m, perf_start_m, perf_end_m = pm4py.discover_performance_dfg(main_log)
+    pm4py.save_vis_performance_dfg(
+        perf_m, perf_start_m, perf_end_m, str(OUT_DIR / "05_dfg_performance_main_paths.png")
+    )
+
     print(f"\nSaved 3 diagrams in {OUT_DIR}")
 
 
